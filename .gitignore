@@ -1,2 +1,5 @@
-lpsolver.o
+*.o
 test_models
+model_builder
+.cproject
+.project

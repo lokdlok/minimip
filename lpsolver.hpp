@@ -1,9 +1,25 @@
+#include <cstdio>
+#include <cstdlib>
+#include "mip_model.hpp"
 
-void printTableaux(double** rows, double* rhs, double* Z,
-                   unsigned int nrows, unsigned int ncols,
-                   double* cmz, double* theta, int* row_vars);
+class Minilp {
+public:
+	Minilp(MinimipModel* model);
+	~Minilp();
 
-double* simplex(double** rows, double* rhs, double* Z,
-                     unsigned int nrows, unsigned int ncols);
+	int simplex();
 
-void printSolution(double* solution, double* Z, int ncols, int nrows);
+	void printTableaux(char* str="\0");
+
+	void printSolution();
+
+private:
+	//std::ostream logger;
+
+	MinimipModel* model;
+	std::map<int, double> cmz;
+	double* theta;
+	int* row_vars;
+
+	std::map<int, double> solution;
+};
