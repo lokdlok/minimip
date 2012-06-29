@@ -28,11 +28,14 @@ int Minilp::simplex() {
     int pivot_row = 0;
     double pivot_element;
 
-    for (int r = 0; r < model->nrows; r++)
+    for (int r = 0; r < model->nrows; r++) {
+    	if(model->rhs[r] < 0.0)
+    		return 0;
         for (int c = model->ncols - model->nrows; c < model->ncols; c++)
             if (model->rows[r]->find(c) != model->rows[r]->end()
                     && (*model->rows[r])[c] == 1.0)
                 row_vars[r] = c;
+    }
 
     while (1) {
         pivot_variable = 0;
